@@ -54,7 +54,7 @@ window.addEventListener("gamepaddisconnected", (event) => {
 });
 
 function clearScreen() {
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "#353535";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
