@@ -78,5 +78,5 @@ export class Vector2 {
 	}
 }
 
-
+//Vector2 class
 //https://gist.github.com/Dalimil/3daf2a0c531d7d030deb37a7bfeff454
