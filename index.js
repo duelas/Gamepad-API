@@ -3,8 +3,9 @@ import { Controller } from './Controller.js';
 
 const canvas = document.getElementById("gameArea");
 const ctx = canvas.getContext("2d");
-var i = 0;
+
 var controllers = [];
+// var controllers = [new Controller(0)];
 
 
 function setupCanvas() {
@@ -32,6 +33,13 @@ window.addEventListener("gamepaddisconnected", (event) => {
 function clearScreen() {
   ctx.fillStyle = "#353535";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  if (Controller.counts == 0){
+    ctx.font = "normal small-caps 100 16px Helvetica";
+    ctx.textAlign = "start";
+    ctx.textBaseline = "bottom";
+    ctx.fillStyle = "#EEE3CC";
+    ctx.fillText("No Controller Detected", 10, 50);
+  }
 }
 
 function controllerCycle() {

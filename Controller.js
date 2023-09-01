@@ -2,6 +2,7 @@ import { Vector2 } from './Vector2.js';
 
 export class Controller {
   static stickDeadZone = 0.4;
+  static counts = 0;
   constructor(index) {
     this.index = index;
     this.aPressed = false;
@@ -25,9 +26,11 @@ export class Controller {
     this.rStickDir = new Vector2(0, 0);
 
     this.instantiateHTML();
+    Controller.counts++;
   }
 
   destruct() {
+    Controller.counts--;
     this.ctrl.remove();
   }
 
@@ -71,59 +74,63 @@ export class Controller {
     this.ctrl = document.createElement("div");
     this.ctrl.setAttribute("class", "controller");
 
-    this.abxy = document.createElement("div");
-    this.abxy.setAttribute("class", "abxy");
+    var numberText = document.createElement("div");
+    numberText.setAttribute("class", "controllerIndex");
+    numberText.innerHTML = this.index;
+
+    var abxy = document.createElement("div");
+    abxy.setAttribute("class", "abxy");
 
     this.aKey = document.createElement("div");
     this.aKey.setAttribute("class", "aKey");
     this.aKey.innerHTML = '<image src=".\\icons\\Switch\\Switch_A.png"></image>';
-    this.abxy.appendChild(this.aKey);
+    abxy.appendChild(this.aKey);
 
     this.bKey = document.createElement("div");
     this.bKey.setAttribute("class", "bKey");
     this.bKey.innerHTML = '<image src=".\\icons\\Switch\\Switch_B.png"></image>';
-    this.abxy.appendChild(this.bKey);
+    abxy.appendChild(this.bKey);
 
     this.xKey = document.createElement("div");
     this.xKey.setAttribute("class", "xKey");
     this.xKey.innerHTML = '<image src=".\\icons\\Switch\\Switch_X.png"></image>';
-    this.abxy.appendChild(this.xKey);
+    abxy.appendChild(this.xKey);
 
     this.yKey = document.createElement("div");
     this.yKey.setAttribute("class", "yKey");
     this.yKey.innerHTML = '<image src=".\\icons\\Switch\\Switch_Y.png"></image>';
-    this.abxy.appendChild(this.yKey);
+    abxy.appendChild(this.yKey);
 
 
 
-    this.udlr = document.createElement("div");
-    this.udlr.setAttribute("class", "udlr");
+    var udlr = document.createElement("div");
+    udlr.setAttribute("class", "udlr");
 
     this.up = document.createElement("div");
     this.up.setAttribute("class", "up");
     this.up.innerHTML = '<image src=".\\icons\\Switch\\Switch_Up.png"></image>';
-    this.udlr.appendChild(this.up);
+    udlr.appendChild(this.up);
 
     this.down = document.createElement("div");
     this.down.setAttribute("class", "down");
     this.down.innerHTML = '<image src=".\\icons\\Switch\\Switch_Down.png"></image>';
-    this.udlr.appendChild(this.down);
+    udlr.appendChild(this.down);
 
     this.left = document.createElement("div");
     this.left.setAttribute("class", "left");
     this.left.innerHTML = '<image src=".\\icons\\Switch\\Switch_Left.png"></image>';
-    this.udlr.appendChild(this.left);
+    udlr.appendChild(this.left);
 
     this.right = document.createElement("div");
     this.right.setAttribute("class", "right");
     this.right.innerHTML = '<image src=".\\icons\\Switch\\Switch_Right.png"></image>';
-    this.udlr.appendChild(this.right);
+    udlr.appendChild(this.right);
 
 
 
 
-    this.rightStick = document.createElement("div");
-    this.rightStick.setAttribute("class", "rightStick");
+    var rightStick = document.createElement("div");
+    rightStick.setAttribute("class", "rightStick");
 
     this.rightStickImg = document.createElement("img");
     this.rightStickImg.setAttribute("src", ".\\icons\\Switch\\Switch_Right_Stick.png");
@@ -132,13 +139,13 @@ export class Controller {
     var rightbase = document.createElement("span");
     rightbase.setAttribute("class", "rightBase")
 
-    this.rightStick.appendChild(rightbase);
-    this.rightStick.appendChild(this.rightStickImg);
+    rightStick.appendChild(rightbase);
+    rightStick.appendChild(this.rightStickImg);
 
 
 
-    this.leftStick = document.createElement("div");
-    this.leftStick.setAttribute("class", "leftStick");
+    var leftStick = document.createElement("div");
+    leftStick.setAttribute("class", "leftStick");
 
     this.leftStickImg = document.createElement("img");
     this.leftStickImg.setAttribute("src", ".\\icons\\Switch\\Switch_Left_Stick.png");
@@ -147,69 +154,76 @@ export class Controller {
     var leftbase = document.createElement("span");
     leftbase.setAttribute("class", "leftBase");
 
-    this.leftStick.appendChild(leftbase);
-    this.leftStick.appendChild(this.leftStickImg);
+    leftStick.appendChild(leftbase);
+    leftStick.appendChild(this.leftStickImg);
 
 
 
-    this.rShoulder = document.createElement("div");
-    this.rShoulder.setAttribute("class", "rShoulder");
+    var rShoulder = document.createElement("div");
+    rShoulder.setAttribute("class", "rShoulder");
 
     this.rb = document.createElement("div");
     this.rb.setAttribute("class", "rb");
-    this.rb.innerHTML = '<image src=".\\icons\\Switch\\Switch_RB.png"></image>';
-    this.rShoulder.appendChild(this.rb);
+    this.rb.innerHTML = '<div class="rbtxt">RB</div><image class="rbbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+
+    rShoulder.appendChild(this.rb);
 
     this.rt = document.createElement("div");
     this.rt.setAttribute("class", "rt");
-    this.rt.innerHTML = '<image src=".\\icons\\Switch\\Switch_RT.png"></image>';
-    this.rShoulder.appendChild(this.rt);
+    this.rt.innerHTML = '<div class="rttxt">RT</div><image class="rtbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+  
+    rShoulder.appendChild(this.rt);
 
-    this.lShoulder = document.createElement("div");
-    this.lShoulder.setAttribute("class", "lShoulder");
+
+
+    var lShoulder = document.createElement("div");
+    lShoulder.setAttribute("class", "lShoulder");
 
     this.lb = document.createElement("div");
     this.lb.setAttribute("class", "lb");
-    this.lb.innerHTML = '<image src=".\\icons\\Switch\\Switch_LB.png"></image>';
-    this.lShoulder.appendChild(this.lb);
+    this.lb.innerHTML = '<div class="lbtxt">LB</div><image class="lbbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+
+    lShoulder.appendChild(this.lb);
 
     this.lt = document.createElement("div");
     this.lt.setAttribute("class", "lt");
-    this.lt.innerHTML = '<image src=".\\icons\\Switch\\Switch_LT.png"></image>';
-    this.lShoulder.appendChild(this.lt);
+    this.lt.innerHTML = '<div class="lttxt">LT</div><image class="ltbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+  
+    lShoulder.appendChild(this.lt);
 
 
-    this.cellSelect = document.createElement("div");
-    this.cellSelect.setAttribute("class", "cellSelect");
+    var cellSelect = document.createElement("div");
+    cellSelect.setAttribute("class", "cellSelect");
     this.select = document.createElement("div");
     this.select.setAttribute("class", "select");
     this.select.innerHTML = '<image src=".\\icons\\Switch\\Switch_Minus.png"></image>';
-    this.cellSelect.appendChild(this.select);
+    cellSelect.appendChild(this.select);
 
-    this.cellStart = document.createElement("div");
-    this.cellStart.setAttribute("class", "cellStart");
+    var cellStart = document.createElement("div");
+    cellStart.setAttribute("class", "cellStart");
     this.start = document.createElement("div");
     this.start.setAttribute("class", "start");
     this.start.innerHTML = '<image src=".\\icons\\Switch\\Switch_Plus.png"></image>';
-    this.cellStart.appendChild(this.start);
+    cellStart.appendChild(this.start);
 
-    this.cellHome = document.createElement("div");
-    this.cellHome.setAttribute("class", "cellHome");
+    var cellHome = document.createElement("div");
+    cellHome.setAttribute("class", "cellHome");
     this.home = document.createElement("div");
     this.home.setAttribute("class", "home");
     this.home.innerHTML = '<image src=".\\icons\\Switch\\Switch_Home.png"></image>';
-    this.cellHome.appendChild(this.home);
+    cellHome.appendChild(this.home);
 
 
-    this.ctrl.appendChild(this.abxy);
-    this.ctrl.appendChild(this.udlr);
-    this.ctrl.appendChild(this.rightStick);
-    this.ctrl.appendChild(this.leftStick);
-    this.ctrl.appendChild(this.rShoulder);
-    this.ctrl.appendChild(this.lShoulder);
-    this.ctrl.appendChild(this.cellSelect);
-    this.ctrl.appendChild(this.cellStart);
-    this.ctrl.appendChild(this.cellHome);
+    this.ctrl.appendChild(numberText);
+    this.ctrl.appendChild(abxy);
+    this.ctrl.appendChild(udlr);
+    this.ctrl.appendChild(rightStick);
+    this.ctrl.appendChild(leftStick);
+    this.ctrl.appendChild(rShoulder);
+    this.ctrl.appendChild(lShoulder);
+    this.ctrl.appendChild(cellSelect);
+    this.ctrl.appendChild(cellStart);
+    this.ctrl.appendChild(cellHome);
 
 
     document.getElementsByClassName("controllerPanel")[0].appendChild(this.ctrl);
@@ -235,6 +249,8 @@ export class Controller {
 
     this.left.style.opacity = this.leftPressed ? "0.9" : "0.3";
 
+
+    
     this.rb.style.opacity = this.rbPressed ? "0.9" : "0.3";
 
     this.rt.style.opacity = this.rtPressed ? "0.9" : "0.3";
@@ -248,14 +264,14 @@ export class Controller {
     this.rightStickImg.style.marginTop = this.rStickDir.y * 33 + "%";
     this.rightStickImg.style.marginBottom = (-this.rStickDir.y * 33) + "%";
     this.rightStickImg.style.opacity = 0.3 + this.rStickDir.magnitude() / Controller.stickDeadZone + this.rStickPressed;
-    this.rightStickImg.style.scale = 1 + this.rStickPressed * .5;
+    this.rightStickImg.style.scale = 1 + this.rStickPressed * .2;
 
     this.leftStickImg.style.marginLeft = this.lStickDir.x * 33 + "%";
     this.leftStickImg.style.marginRight = (-this.lStickDir.x * 33) + "%";
     this.leftStickImg.style.marginTop = this.lStickDir.y * 33 + "%";
     this.leftStickImg.style.marginBottom = (-this.lStickDir.y * 33) + "%";
     this.leftStickImg.style.opacity = 0.3 + this.lStickDir.magnitude() / Controller.stickDeadZone + this.lStickPressed;
-    this.leftStickImg.style.scale = 1 + this.lStickPressed * .5;
+    this.leftStickImg.style.scale = 1 + this.lStickPressed * .2;
 
     this.start.style.opacity = this.startPressed ? "0.9" : "0.3";
 
