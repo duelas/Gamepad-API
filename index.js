@@ -131,16 +131,16 @@ function controllerUI() {
   element.style.opacity = ltPressed ? "0.9" : "0.3";
 
   var element = document.getElementById('rightStickImg');
-  element.style.marginLeft = rightStick.x * 25 +"%";
-  element.style.marginRight = (-rightStick.x * 25) +"%";
-  element.style.marginTop = rightStick.y * 25 + "%";
-  element.style.marginBottom = (-rightStick.y * 25) +"%";
+  element.style.marginLeft = rightStick.x * 33 +"%";
+  element.style.marginRight = (-rightStick.x * 33) +"%";
+  element.style.marginTop = rightStick.y * 33 + "%";
+  element.style.marginBottom = (-rightStick.y * 33) +"%";
 
   var element = document.getElementById('leftStickImg');
-  element.style.marginLeft = leftStick.x * 25 + "%";
-  element.style.marginRight = (-leftStick.x * 25) +"%";
-  element.style.marginTop = leftStick.y * 25 +"%";
-  element.style.marginBottom = (-leftStick.y * 25) +"%";
+  element.style.marginLeft = leftStick.x * 33 + "%";
+  element.style.marginRight = (-leftStick.x * 33) +"%";
+  element.style.marginTop = leftStick.y * 33 +"%";
+  element.style.marginBottom = (-leftStick.y * 33) +"%";
 
 }
 
