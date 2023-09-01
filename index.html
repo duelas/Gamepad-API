@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamepad API</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .controller {
+            aspect-ratio: 5/3;
+            display: grid;
+            grid-template-columns: 23% 23% 8% 23% 23%;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+
+        #aKey {
+            grid-column: 3/4;
+            grid-row: 2/3;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #bKey {
+            grid-column: 2/3;
+            grid-row: 3/4;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #xKey {
+            grid-column: 2/3;
+            grid-row: 1/2;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #yKey {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        .abxy {
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 33% 33% 33%;
+            grid-column: 5/6;
+            grid-row: 2/3;
+            aspect-ratio: 1/1;
+        }
+
+
+
+        #right {
+            grid-column: 3/4;
+            grid-row: 2/3;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #down {
+            grid-column: 2/3;
+            grid-row: 3/4;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #up {
+            grid-column: 2/3;
+            grid-row: 1/2;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #left {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            opacity: 0.3;
+            margin: -20%;
+            display: flex;
+            align-content: stretch;
+        }
+
+        .udlr {
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 33% 33% 33%;
+            grid-column: 2/3;
+            grid-row: 3/4;
+            aspect-ratio: 1/1;
+        }
+
+        .rightStick {
+            display: grid;
+            grid-template-columns: 10% 80% 10%;
+            grid-template-rows: 10% 80% 10%;
+            grid-column: 4/5;
+            grid-row: 3/4;
+            aspect-ratio: 1/1;
+            align-content: stretch;
+        }
+
+        #rightStickImg {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+
+        .rightBase {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            background-color: #bbb;
+            z-index: 2;
+        }
+
+        .leftStick {
+            display: grid;
+            grid-template-columns: 10% 80% 10%;
+            grid-template-rows: 10% 80% 10%;
+            grid-column: 1/2;
+            grid-row: 2/3;
+            aspect-ratio: 1/1;
+            align-content: stretch;
+        }
+
+        #leftStickImg {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+
+        .leftBase {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            background-color: #bbb;
+            z-index: 2;
+        }
+
+        .rShoulder {
+            display: grid;
+            grid-template-columns: 30% 50% 20%;
+            grid-template-rows: 50% 50%;
+            grid-column: 5/6;
+            grid-row: 1/2;
+            aspect-ratio: 1/1;
+        }
+
+
+        .lShoulder {
+            display: grid;
+            grid-template-columns: 20% 50% 30%;
+            grid-template-rows: 50% 50%;
+            grid-column: 1/2;
+            grid-row: 1/2;
+            aspect-ratio: 1/1;
+        }
+
+        #rb, #lb {
+            grid-column: 2/3;
+            grid-row: 1/2;
+            opacity: 0.3;
+            display: flex;
+            align-content: stretch;
+        }
+
+        #rt {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            opacity: 0.3;
+            display: flex;
+            align-content: stretch;
+            margin-left: 20%;
+            margin-right: -20%;
+            margin-top: -20%;
+            margin-bottom: 20%;
+        }
+
+        #lt {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            opacity: 0.3;
+            display: flex;
+            align-content: stretch;
+            margin-right: 20%;
+            margin-left: -20%;
+            margin-top: -20%;
+            margin-bottom: 20%;
+        }
+    </style>
+    <script type="module" src=".\index.js" defer></script>
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="controller">
+            <div class="abxy">
+
+                <div id="aKey">
+                    <image src=".\icons\Switch\Switch_A.png"></image>
+                </div>
+                <div id="bKey">
+                    <image src=".\icons\Switch\Switch_B.png"></image>
+                </div>
+                <div id="xKey">
+                    <image src=".\icons\Switch\Switch_X.png"></image>
+                </div>
+                <div id="yKey">
+                    <image src=".\icons\Switch\Switch_Y.png"></image>
+                </div>
+
+            </div>
+
+            <div class="udlr">
+
+                <div id="up">
+                    <image src=".\icons\Switch\Switch_Up.png"></image>
+                </div>
+                <div id="down">
+                    <image src=".\icons\Switch\Switch_Down.png"></image>
+                </div>
+                <div id="left">
+                    <image src=".\icons\Switch\Switch_Left.png"></image>
+                </div>
+                <div id="right">
+                    <image src=".\icons\Switch\Switch_Right.png"></image>
+                </div>
+
+            </div>
+
+            <div class="rightStick">
+                <span class="rightBase"></span>
+                <image id="rightStickImg" src=".\icons\Switch\Switch_Right_Stick.png"></image>
+            </div>
+            <div class="leftStick">
+                <span class="leftBase"></span>
+                <image id="leftStickImg" src=".\icons\Switch\Switch_Left_Stick.png"></image>
+            </div>
+
+            <div class="rShoulder">
+                <div id="rb">
+                    <img src=".\icons\Switch\Switch_RB.png">
+                </div>
+                <div id="rt">
+                    <img src=".\icons\Switch\Switch_RT.png">
+                </div>
+            </div>
+
+            <div class="lShoulder">
+                <div id="lb">
+                    <img src=".\icons\Switch\Switch_LB.png">
+                </div>
+                <div id="lt">
+                    <img src=".\icons\Switch\Switch_LT.png">
+                </div>
+            </div>
+
+        </div>
+
+        <canvas id="gameArea"></canvas>
+    </div>
+</body>
+
+</html>
