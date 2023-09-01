@@ -4,15 +4,12 @@ const canvas = document.getElementById("gameArea");
 const ctx = canvas.getContext("2d");
 let controllerIndex = null;
 
-let leftPressed = false;
-let rightPressed = false;
-let upPressed = false;
-let downPressed = false;
+const stickDeadZone = 0.4;
 
 let playerWidthAndHeight = 0;
 let playerX = 0;
 let playerY = 0;
-let playerColor = "orange";
+
 let velocity = 0;
 
 let aPressed = false;
@@ -20,13 +17,27 @@ let bPressed = false;
 let xPressed = false;
 let yPressed = false;
 
-let leftStick = new Vector2(0,0);
-let rightStick = new Vector2(0,0);
-
 let rbPressed = false;
 let rtPressed = false;
 let lbPressed = false;
 let ltPressed = false;
+
+let selectPressed = false;
+let startPressed = false;
+let lStickPressed = false;
+let rStickPressed = false;
+
+
+
+let leftPressed = false;
+let rightPressed = false;
+let upPressed = false;
+let downPressed = false;
+
+let homePressed = false;
+
+let leftStick = new Vector2(0, 0);
+let rightStick = new Vector2(0, 0);
 
 function setupCanvas() {
   canvas.width = window.innerWidth;
@@ -74,14 +85,21 @@ function controllerInput() {
     ltPressed = buttons[6].pressed;
     rtPressed = buttons[7].pressed;
 
+    selectPressed = buttons[8].pressed;
+    startPressed = buttons[9].pressed;
+    lStickPressed = buttons[10].pressed;
+    rStickPressed = buttons[11].pressed;
+
     upPressed = buttons[12].pressed;
     downPressed = buttons[13].pressed;
     leftPressed = buttons[14].pressed;
     rightPressed = buttons[15].pressed;
 
-    const stickDeadZone = 0.4;
+    homePressed = buttons[16].pressed;
 
-    leftStick.set(gamepad.axes[0],gamepad.axes[1]);
+
+
+    leftStick.set(gamepad.axes[0], gamepad.axes[1]);
     rightStick.set(gamepad.axes[2], gamepad.axes[3]);
 
 
@@ -131,16 +149,29 @@ function controllerUI() {
   element.style.opacity = ltPressed ? "0.9" : "0.3";
 
   var element = document.getElementById('rightStickImg');
-  element.style.marginLeft = rightStick.x * 33 +"%";
-  element.style.marginRight = (-rightStick.x * 33) +"%";
+  element.style.marginLeft = rightStick.x * 33 + "%";
+  element.style.marginRight = (-rightStick.x * 33) + "%";
   element.style.marginTop = rightStick.y * 33 + "%";
-  element.style.marginBottom = (-rightStick.y * 33) +"%";
+  element.style.marginBottom = (-rightStick.y * 33) + "%";
+  element.style.opacity = 0.3 + rightStick.magnitude() / stickDeadZone + rStickPressed;
+  element.style.scale = 1 + rStickPressed * .5;
 
   var element = document.getElementById('leftStickImg');
   element.style.marginLeft = leftStick.x * 33 + "%";
-  element.style.marginRight = (-leftStick.x * 33) +"%";
-  element.style.marginTop = leftStick.y * 33 +"%";
-  element.style.marginBottom = (-leftStick.y * 33) +"%";
+  element.style.marginRight = (-leftStick.x * 33) + "%";
+  element.style.marginTop = leftStick.y * 33 + "%";
+  element.style.marginBottom = (-leftStick.y * 33) + "%";
+  element.style.opacity = 0.3 + leftStick.magnitude() / stickDeadZone + lStickPressed;
+  element.style.scale = 1 + lStickPressed * .5;
+
+  var element = document.getElementById('start');
+  element.style.opacity = startPressed ? "0.9" : "0.3";
+
+  var element = document.getElementById('select');
+  element.style.opacity = selectPressed ? "0.9" : "0.3";
+
+  var element = document.getElementById('home');
+  element.style.opacity = homePressed ? "0.9" : "0.3";
 
 }
 
