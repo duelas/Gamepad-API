@@ -34,6 +34,8 @@ export class Controller {
   readInput() {
     const gamepad = navigator.getGamepads()[this.index];
 
+    if (gamepad === null) return;
+
     const buttons = gamepad.buttons;
 
     this.bPressed = buttons[0].pressed;
