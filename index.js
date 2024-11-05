@@ -4,8 +4,8 @@ import { Controller } from './Controller.js';
 const canvas = document.getElementById("gameArea");
 const ctx = canvas.getContext("2d");
 
-var controllers = [];
-// var controllers = [new Controller(0)];
+// var controllers = [];
+var controllers = [new Controller(0)];
 
 
 function setupCanvas() {

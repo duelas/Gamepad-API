@@ -158,19 +158,21 @@ export class Controller {
     leftStick.appendChild(this.leftStickImg);
 
 
+    var uprow = document.createElement("div");
+    uprow.setAttribute("class", "uprow");
 
     var rShoulder = document.createElement("div");
     rShoulder.setAttribute("class", "rShoulder");
 
     this.rb = document.createElement("div");
     this.rb.setAttribute("class", "rb");
-    this.rb.innerHTML = '<div class="rbtxt">RB</div><image class="rbbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+    this.rb.innerHTML = '<div class="rbtxt">RB</div>';
 
     rShoulder.appendChild(this.rb);
 
     this.rt = document.createElement("div");
     this.rt.setAttribute("class", "rt");
-    this.rt.innerHTML = '<div class="rttxt">RT</div><image class="rtbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+    this.rt.innerHTML = '<div class="rttxt">RT</div>';
   
     rShoulder.appendChild(this.rt);
 
@@ -181,30 +183,40 @@ export class Controller {
 
     this.lb = document.createElement("div");
     this.lb.setAttribute("class", "lb");
-    this.lb.innerHTML = '<div class="lbtxt">LB</div><image class="lbbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+    this.lb.innerHTML = '<div class="lbtxt">LB</div>';
 
     lShoulder.appendChild(this.lb);
 
     this.lt = document.createElement("div");
     this.lt.setAttribute("class", "lt");
-    this.lt.innerHTML = '<div class="lttxt">LT</div><image class="ltbtn" style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\shoulder.svg"></image>';
+    this.lt.innerHTML = '<div class="lttxt">LT</div>';
   
     lShoulder.appendChild(this.lt);
 
 
-    var cellSelect = document.createElement("div");
-    cellSelect.setAttribute("class", "cellSelect");
+    var cellMiddle = document.createElement("div");
+    cellMiddle.setAttribute("class", "cellMiddle");
+
+    
+
     this.select = document.createElement("div");
     this.select.setAttribute("class", "select");
-    this.select.innerHTML = '<image src=".\\icons\\Switch\\Switch_Minus.png"></image>';
-    cellSelect.appendChild(this.select);
+    this.select.innerHTML = '<image style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\Switch\\Switch_Minus.png""></image>';
+    cellMiddle.appendChild(this.select);
 
-    var cellStart = document.createElement("div");
-    cellStart.setAttribute("class", "cellStart");
+    
     this.start = document.createElement("div");
     this.start.setAttribute("class", "start");
-    this.start.innerHTML = '<image src=".\\icons\\Switch\\Switch_Plus.png"></image>';
-    cellStart.appendChild(this.start);
+    this.start.innerHTML = '<image style="height: 100%; width: 100%; object-fit: contain" src=".\\icons\\Switch\\Switch_Plus.png""></image>';
+    cellMiddle.appendChild(this.start);
+
+
+    uprow.appendChild(lShoulder);
+    uprow.appendChild(cellMiddle);
+    uprow.appendChild(rShoulder);
+
+
+
 
     var cellHome = document.createElement("div");
     cellHome.setAttribute("class", "cellHome");
@@ -214,15 +226,12 @@ export class Controller {
     cellHome.appendChild(this.home);
 
 
+    this.ctrl.appendChild(uprow);
     this.ctrl.appendChild(numberText);
     this.ctrl.appendChild(abxy);
     this.ctrl.appendChild(udlr);
     this.ctrl.appendChild(rightStick);
     this.ctrl.appendChild(leftStick);
-    this.ctrl.appendChild(rShoulder);
-    this.ctrl.appendChild(lShoulder);
-    this.ctrl.appendChild(cellSelect);
-    this.ctrl.appendChild(cellStart);
     this.ctrl.appendChild(cellHome);
 
 
@@ -259,18 +268,22 @@ export class Controller {
 
     this.lt.style.opacity = this.ltPressed ? "0.9" : "0.3";
 
-    this.rightStickImg.style.marginLeft = this.rStickDir.x * 33 + "%";
-    this.rightStickImg.style.marginRight = (-this.rStickDir.x * 33) + "%";
-    this.rightStickImg.style.marginTop = this.rStickDir.y * 33 + "%";
-    this.rightStickImg.style.marginBottom = (-this.rStickDir.y * 33) + "%";
-    this.rightStickImg.style.opacity = 0.3 + this.rStickDir.magnitude() / Controller.stickDeadZone + this.rStickPressed;
+    var normR = this.rStickDir.normalize();
+
+    this.rightStickImg.style.marginLeft = normR.x * 33 + "%";
+    this.rightStickImg.style.marginRight = (-normR.x * 33) + "%";
+    this.rightStickImg.style.marginTop = normR.y * 33 + "%";
+    this.rightStickImg.style.marginBottom = (-normR.y * 33) + "%";
+    this.rightStickImg.style.opacity = 0.3 + normR.magnitude() / Controller.stickDeadZone + this.rStickPressed;
     this.rightStickImg.style.scale = 1 + this.rStickPressed * .2;
 
-    this.leftStickImg.style.marginLeft = this.lStickDir.x * 33 + "%";
-    this.leftStickImg.style.marginRight = (-this.lStickDir.x * 33) + "%";
-    this.leftStickImg.style.marginTop = this.lStickDir.y * 33 + "%";
-    this.leftStickImg.style.marginBottom = (-this.lStickDir.y * 33) + "%";
-    this.leftStickImg.style.opacity = 0.3 + this.lStickDir.magnitude() / Controller.stickDeadZone + this.lStickPressed;
+    var normL = this.lStickDir.normalize();
+
+    this.leftStickImg.style.marginLeft = normL.x * 33 + "%";
+    this.leftStickImg.style.marginRight = (-normL.x * 33) + "%";
+    this.leftStickImg.style.marginTop = normL.y * 33 + "%";
+    this.leftStickImg.style.marginBottom = (-normL.y * 33) + "%";
+    this.leftStickImg.style.opacity = 0.3 + normL.magnitude() / Controller.stickDeadZone + this.lStickPressed;
     this.leftStickImg.style.scale = 1 + this.lStickPressed * .2;
 
     this.start.style.opacity = this.startPressed ? "0.9" : "0.3";
